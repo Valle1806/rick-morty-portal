@@ -21,6 +21,16 @@ Aplicación construida con Angular 19 que implementa Server-Side Rendering (SSR)
 
 ---
 
+## 🧠 Decisiones de Arquitectura y Optimización
+
+### 💾 Estrategia de Persistencia de Favoritos (Hydration from Source)
+Se implementó una estrategia de **persistencia atómica** para la gestión de favoritos, priorizando la integridad de los datos:
+
+* **Almacenamiento Eficiente:** En el estado global (Store) y `localStorage` únicamente se persisten los **IDs** de los personajes. Esto evita saturar el almacenamiento del navegador y cumple con límites de escalabilidad.
+* **Consistencia en Tiempo Real:** En lugar de mostrar datos estáticos guardados hace días, la aplicación utiliza el endpoint multiobjeto de la API (`/character/[ids]`) para obtener información fresca (Status, Location, Last Seen) cada vez que se consulta la lista de favoritos.
+* **Reactividad:** Se utiliza un flujo de RxJS con `switchMap` en la Fachada para sincronizar automáticamente la vista cuando la lista de IDs cambia, garantizando que el usuario siempre vea datos actualizados directamente de la fuente oficial.
+
+---
 
 ## 🗺️ Estructura de Rutas y Vistas
 
@@ -43,6 +53,17 @@ La aplicación cumple con las 3 vistas requeridas en el alcance funcional:
 ---
 
 ## 🛠️ Guía de Ejecución Local
+
+### 📋 Requisitos de Entorno
+Para garantizar la estabilidad del proyecto, se recomienda el uso de Docker.
+
+Entorno Recomendado (Contenedor): Docker Desktop (con motor WSL2 en Windows). El Dockerfile utiliza Node v20.19.2, que es la versión de referencia para esta build.
+
+Entorno Local (Mínimos): Si prefieres ejecutarlo nativamente, los requisitos son:
+
+Node.js: v18.19.1 o superior (Versión mínima requerida por Angular 19).
+
+NPM: v9.x o superior.
 
 ### 1. Instalación de Dependencias
 
@@ -71,7 +92,7 @@ Disponible en:
 http://localhost:4000
 
 --- 
-## 🐳 Despliegue con Docker (Bonus)
+## 🐳 Ejecucion con Docker (Bonus)(Recomendado)
 
 ```bash
 # Build de la imagen
@@ -86,6 +107,13 @@ http://localhost:4000
 
 ---
 
+### 🧪 Ejecución de Pruebas Unitarias
+Para validar la lógica de componentes, fachada y servicios:
+```bash
+npm run test
+```
+
+---
 ## 🛠️ Solución de Problemas (Troubleshooting)
 
 ### 🔴 Docker no inicia
