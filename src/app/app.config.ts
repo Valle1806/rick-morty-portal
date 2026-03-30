@@ -7,6 +7,8 @@ import {
   withEventReplay,
 } from '@angular/platform-browser';
 import { provideHttpClient, withFetch } from '@angular/common/http';
+import { CharacterHttpService } from './core/services/character-http.service';
+import { CharacterRepository } from './core/repositories/character.repository';
 
 export const appConfig: ApplicationConfig = {
   providers: [
@@ -14,5 +16,9 @@ export const appConfig: ApplicationConfig = {
     provideRouter(routes, withComponentInputBinding()),
     provideClientHydration(withEventReplay()),
     provideHttpClient(withFetch()),
+     { 
+      provide: CharacterRepository, 
+      useClass: CharacterHttpService 
+    },  
   ],
 };

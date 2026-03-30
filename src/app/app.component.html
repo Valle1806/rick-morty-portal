@@ -1,5 +1,26 @@
-<div class="flex h-screen items-center justify-center bg-rm-dark">
-  <h1 class="text-5xl font-bold text-rm-green">
-    ¡Portal de Rick & Morty Activo!
-  </h1>
+<div class="min-h-screen bg-grid-mesh">
+    <header class="border-b-4 border-slate-800 bg-slate-900/80 backdrop-blur sticky top-0 z-50 p-4">
+        <div class="container mx-auto flex justify-between items-center px-4">
+            <h1 class="text-4xl font-rick">Rick & Morty</h1>
+            <nav class="flex gap-8 font-black uppercase text-sm">
+                <a 
+                routerLink="/characters" 
+                routerLinkActive="text-[#97ce4c]" 
+                [routerLinkActiveOptions]="{ exact: true }"
+                class="hover:text-[#97ce4c] transition-colors">
+                Explorar
+                </a>
+                <a 
+                routerLink="/favorites" 
+                routerLinkActive="text-[#97ce4c]" 
+                class="hover:text-[#97ce4c] transition-colors">
+                Favoritos
+                </a>
+            </nav>
+        </div>
+    </header>
+
+    <main class="main-container">
+        <router-outlet />
+    </main>
 </div>

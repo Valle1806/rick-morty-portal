@@ -1,4 +1,174 @@
 /* You can add global styles to this file, and also import other style files */
+@import url("https://fonts.googleapis.com/css2?family=Creepster&family=Space+Grotesk:wght@300;500;700;900&display=swap");
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+@layer base {
+  :root {
+    --rm-green: #97ce4c;
+    --rm-blue: #00b0c8;
+    --rm-yellow: #f0e130;
+    --rm-bg: #020617;
+  }
+
+  body {
+    @apply bg-[#020617] text-slate-100 antialiased selection:bg-[#97ce4c] selection:text-black;
+    font-family: "Space Grotesk", sans-serif;
+  }
+
+  /* tipografía para encabezados y branding */
+  h1,
+  h2,
+  h3,
+  .font-rick {
+    font-family: "Creepster", cursive;
+    @apply text-[#97ce4c] normal-case tracking-wider leading-none;
+    text-shadow: 4px 4px 0px rgba(0, 0, 0, 0.5);
+  }
+
+  /* Implementación de scrollbar personalizada */
+  ::-webkit-scrollbar {
+    width: 8px;
+  }
+  ::-webkit-scrollbar-track {
+    @apply bg-slate-950;
+  }
+  ::-webkit-scrollbar-thumb {
+    @apply bg-slate-700 rounded-full border-2 border-slate-950 hover:bg-[#97ce4c];
+  }
+}
+
+@layer components {
+  /* Contenedores globales de layout */
+  .main-container {
+    @apply container mx-auto px-4 py-8 md:py-16;
+  }
+
+  .card-comic {
+    @apply bg-slate-900 border-4 border-slate-800 rounded-[1.5rem] overflow-hidden 
+           transition-all duration-200 relative
+           shadow-[6px_6px_0px_0px_rgba(0,0,0,0.5)] 
+           hover:shadow-[8px_8px_0px_0px_var(--rm-green)] 
+           hover:border-[#97ce4c] hover:-translate-y-1;
+  }
+
+  /* Componentes de acción global */
+  .btn-portal-base {
+    @apply bg-[#97ce4c] text-black font-black uppercase rounded-2xl
+           border-b-4 border-emerald-700 transition-all flex items-center justify-center gap-2
+           active:border-b-0 active:translate-y-1 
+           hover:bg-[#bef264] disabled:opacity-20 disabled:grayscale 
+           disabled:translate-y-0 disabled:border-b-0;
+    font-family: "Space Grotesk", sans-serif;
+  }
+
+
+  .btn-portal {
+    @apply btn-portal-base px-8 py-3;
+  }
+
+  .btn-portal-sm {
+    @apply btn-portal-base px-4 py-2 text-sm;
+  }
+
+  .terminal-panel {
+    @apply bg-slate-950/50 border-4 border-slate-800 rounded-[2rem] p-6
+           shadow-[6px_6px_0px_0px_rgba(30,41,59,1)];
+  }
+
+  .portal-loader-wrapper {
+    @apply flex flex-col items-center justify-center min-h-[400px];
+
+    .portal-ring {
+      @apply w-32 h-32 rounded-full relative;
+      background: radial-gradient(
+        circle,
+        #97ce4c 20%,
+        #f0e130 50%,
+        #208d28 80%
+      );
+      filter: blur(2px);
+      box-shadow: 0 0 40px rgba(151, 206, 76, 0.4);
+      animation:
+        portal-spin 2s linear infinite,
+        portal-morph 3s ease-in-out infinite;
+
+      &::after {
+        content: "";
+        @apply absolute inset-4 bg-[#020617] rounded-full;
+        filter: blur(8px);
+      }
+    }
+
+    .portal-label {
+      @apply mt-10 font-mono text-[#97ce4c] font-bold text-sm tracking-[0.5em] uppercase animate-pulse text-center;
+    }
+  }
+
+  /* Indicadores de estado dinámico */
+  .status-badge {
+    @apply flex items-center gap-2 px-3 py-1 rounded-full text-xs font-bold uppercase bg-black/40 border border-slate-700 inline-flex;
+
+    .dot {
+      @apply w-2 h-2 rounded-full;
+    }
+    &.alive .dot {
+      @apply bg-green-500 shadow-[0_0_8px_rgba(34,197,94,0.6)];
+    }
+    &.dead .dot {
+      @apply bg-red-500 shadow-[0_0_8px_rgba(239,68,68,0.6)];
+    }
+    &.unknown .dot {
+      @apply bg-slate-500;
+    }
+  }
+
+  /* Estilo específico para el botón de la tarjeta */
+  .btn-action {
+    @apply w-full py-2 px-4 rounded-xl font-bold text-xs uppercase transition-all
+           border-2 border-slate-700 bg-slate-800/50 text-[#00b0c8]
+           hover:border-[#97ce4c] hover:text-[#97ce4c] hover:bg-slate-800;
+  }
+
+  /* El contenedor del corazón de favorito */
+  .fav-button {
+    @apply absolute top-4 right-4 p-2 rounded-xl bg-black/60 border-2 border-slate-700
+           text-slate-400 transition-all hover:scale-110;
+    &.active {
+      @apply text-red-500 border-red-500 bg-red-500/10;
+    }
+  }
+}
+
+/* Definición de Keyframes para animaciones */
+@keyframes portal-spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+@keyframes portal-morph {
+  0%,
+  100% {
+    border-radius: 50% 50% 50% 50%;
+  }
+  50% {
+    border-radius: 42% 58% 46% 54%;
+  }
+}
+
+/* Utilidades de efectos visuales */
+@layer utilities {
+  .text-glow-green {
+    text-shadow: 0 0 10px rgba(151, 206, 76, 0.5);
+  }
+  .bg-grid-mesh {
+    background-image: radial-gradient(circle, #334155 1px, transparent 1px);
+    background-size: 30px 30px;
+  }
+}
