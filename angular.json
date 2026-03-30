@@ -3,7 +3,7 @@
   "version": 1,
   "newProjectRoot": "projects",
   "projects": {
-    "rick-morty-app": {
+    "rick-morty-portal": {
       "projectType": "application",
       "schematics": {
         "@schematics/angular:component": {
@@ -17,7 +17,7 @@
         "build": {
           "builder": "@angular-devkit/build-angular:application",
           "options": {
-            "outputPath": "dist/rick-morty-app",
+            "outputPath": "dist/rick-morty-portal",
             "index": "src/index.html",
             "browser": "src/main.ts",
             "polyfills": [
@@ -72,10 +72,10 @@
           "builder": "@angular-devkit/build-angular:dev-server",
           "configurations": {
             "production": {
-              "buildTarget": "rick-morty-app:build:production"
+              "buildTarget": "rick-morty-portal:build:production"
             },
             "development": {
-              "buildTarget": "rick-morty-app:build:development"
+              "buildTarget": "rick-morty-portal:build:development"
             }
           },
           "defaultConfiguration": "development"
