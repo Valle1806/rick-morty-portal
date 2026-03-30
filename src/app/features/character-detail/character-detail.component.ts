@@ -1,15 +1,17 @@
 import { Character } from './../../core/models/character.model';
-import { Component, inject, Input, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, Component, inject, Input, OnInit } from '@angular/core';
 import { CharactersFacade } from '../../core/facades/characters.service';
 import { Observable } from 'rxjs';
 import { CommonModule } from '@angular/common';
 import { RouterLink } from '@angular/router';
+import { LoaderComponent } from '../../shared/components/loader/loader.component';
 
 @Component({
   selector: 'app-character-detail',
   standalone: true,
-  imports: [CommonModule, RouterLink],
+  imports: [CommonModule, RouterLink, LoaderComponent],
   templateUrl: './character-detail.component.html',
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class CharacterDetailComponent implements OnInit {
   public facade = inject(CharactersFacade);
@@ -49,7 +51,7 @@ export class CharacterDetailComponent implements OnInit {
     return char[field.key] || 'N/A';
   }
 
-  toggleFavorite(Character: Character): void {
-    this.facade.toggleFavorite(Character.id);
+  toggleFavorite(character: Character): void {
+    this.facade.toggleFavorite(character.id);
   }
 }

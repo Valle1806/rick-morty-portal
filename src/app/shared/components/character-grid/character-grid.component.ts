@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component, EventEmitter, Input, Output } from '@angular/core';
+import { ChangeDetectionStrategy, Component, EventEmitter, Input, Output } from '@angular/core';
 import { Character } from '../../../core/models/character.model';
 import { CharacterCardComponent } from '../character-card/character-card.component';
 
@@ -8,7 +8,8 @@ import { CharacterCardComponent } from '../character-card/character-card.compone
   standalone: true,
   imports: [CommonModule, CharacterCardComponent],
   templateUrl: './character-grid.component.html',
-  styles: ``
+  styles: ``,
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class CharacterGridComponent {
   @Input() characters: Character[] = [];

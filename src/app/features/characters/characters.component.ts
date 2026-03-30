@@ -1,23 +1,27 @@
-import { Component, inject, Input, PLATFORM_ID } from '@angular/core';
+import { ChangeDetectionStrategy, Component, inject, Input, PLATFORM_ID } from '@angular/core';
 import { CharactersFacade } from '../../core/facades/characters.service';
 import { Router } from '@angular/router';
 import { CommonModule, isPlatformBrowser } from '@angular/common';
 import { CharacterGridComponent } from '../../shared/components/character-grid/character-grid.component';
+import { LoaderComponent } from '../../shared/components/loader/loader.component';
 
 @Component({
   selector: 'app-characters',
   standalone: true,
-  imports: [CommonModule, CharacterGridComponent],
+  imports: [CommonModule, CharacterGridComponent, LoaderComponent],
   templateUrl: './characters.component.html',
   styles: ``,
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class CharactersComponent {
   private platformId = inject(PLATFORM_ID);
   public facade = inject(CharactersFacade);
   private router = inject(Router);
+
   private _page: number = 1;
   private _isFirstLoad = true; // Tracking interno para evitar bucles de navegación
   public currentPage = 1;
+
   @Input() set page(value: string) {
     const incomingPage = parseInt(value, 10) || 1;
 

@@ -4,10 +4,11 @@ import { CharacterGridComponent } from '../../shared/components/character-grid/c
 import { RouterModule } from '@angular/router';
 import { CharactersFacade } from '../../core/facades/characters.service';
 import { Character } from '../../core/models/character.model';
+import { LoaderComponent } from '../../shared/components/loader/loader.component';
 
 @Component({
   selector: 'app-favorites',
-  imports: [CommonModule, CharacterGridComponent, RouterModule],
+  imports: [CommonModule, CharacterGridComponent, RouterModule, LoaderComponent],
   templateUrl: './favorites.component.html',
   styles: ``,
   changeDetection: ChangeDetectionStrategy.OnPush

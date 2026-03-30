@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component, EventEmitter, Input, Output } from '@angular/core';
+import { ChangeDetectionStrategy, Component, EventEmitter, Input, Output } from '@angular/core';
 import { RouterModule } from '@angular/router';
 import { Character } from '../../../core/models/character.model';
 
@@ -8,7 +8,8 @@ import { Character } from '../../../core/models/character.model';
   standalone: true,
   imports: [CommonModule, RouterModule],
   templateUrl: './character-card.component.html',
-  styles: ``
+  styles: ``,
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class CharacterCardComponent {
   // Datos del personaje

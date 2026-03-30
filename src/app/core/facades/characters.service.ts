@@ -7,12 +7,12 @@ import {
   distinctUntilChanged,
   finalize,
   Observable,
-  map,
   switchMap,
   of,
   shareReplay,
   tap,
   catchError,
+  Subject,
 } from 'rxjs';
 import { Store } from '@ngrx/store';
 import * as FavActions from '../state/favorites/favorites.actions';
@@ -25,7 +25,9 @@ export class CharactersFacade {
   private repository = inject(CharacterRepository);
   private store = inject(Store);
 
-  // Estados locales (Loading y paginación se quedan aquí por ahora, es más ágil)
+  private pageRequest$ = new Subject<number>();
+
+  // Estados locales (Loading y paginación)
   private charactersSubject = new BehaviorSubject<Character[]>([]);
   private loadingSubject = new BehaviorSubject<boolean>(false);
   private totalPagesSubject = new BehaviorSubject<number>(1);
@@ -57,25 +59,29 @@ export class CharactersFacade {
     shareReplay(1),
   );
 
-  loadCharacters(page: number): void {
-    this.loadingSubject.next(true);
-    this.repository
-      .getCharacters(page)
-      .pipe(
-        debounceTime(300),
-        distinctUntilChanged(),
-        finalize(() => this.loadingSubject.next(false)),
+  constructor() {
+    this.pageRequest$.pipe(
+      distinctUntilChanged(), // Evita recargar si es la misma página
+      debounceTime(300),      // anti-click spam
+      tap(() => this.loadingSubject.next(true)),
+      switchMap((page) => 
+        this.repository.getCharacters(page).pipe(
+          catchError((err) => {
+            console.error('Error loading characters:', err);
+            return of({ results: [], info: { pages: 1 } });
+          }),
+          finalize(() => this.loadingSubject.next(false))
+        )
       )
-      .subscribe({
-        next: (response) => {
-          this.charactersSubject.next(response.results);
-          this.totalPagesSubject.next(response.info.pages);
-        },
-        error: (err) => {
-          console.error('Error loading characters:', err);
-          this.loadingSubject.next(false);
-        },
-      });
+    ).subscribe((response) => {
+      if (response && response.results) {
+        this.charactersSubject.next(response.results);
+        this.totalPagesSubject.next(response.info.pages);
+      }
+    });
+  }
+  loadCharacters(page: number): void {
+   this.pageRequest$.next(page);
   }
 
   getCharacterDetail(id: number | string): Observable<Character> {

@@ -1,10 +1,7 @@
 <div class="main-container bg-grid-mesh min-h-screen">
   
   @if (facade.loading$ | async) {
-    <div class="portal-loader-wrapper">
-      <div class="portal-ring"></div>
-      <div class="portal-label">Sincronizando...</div>
-    </div>
+    <app-loader label="Sincronizando..."></app-loader>
   } @else {
     @if (facade.favorites$ | async; as favs) {
       

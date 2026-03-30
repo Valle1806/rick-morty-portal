@@ -7,9 +7,7 @@
 </header>
 
 @if ((facade.loading$ | async) && (facade.characters$ | async)?.length === 0){
-  <div class="flex justify-center items-center h-64">
-    <p class="text-xl text-slate-500">Cargando personajes...</p>
-  </div>
+    <app-loader label="Cargando personajes..."></app-loader>
 } @else { 
     <section class="block">
         <app-character-grid 
