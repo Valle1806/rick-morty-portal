@@ -3,5 +3,6 @@ import { Character, ApiResponse } from '../models/character.model';
 
 export abstract class CharacterRepository {
     abstract getCharacters(page: number): Observable<ApiResponse>;
-    abstract getCharacterById(id: number): Observable<Character>;
+    abstract getCharacterById(id: string | number): Observable<Character>;
+    abstract getMultipleCharacters(ids: number[]): Observable<Character[]>;
 }

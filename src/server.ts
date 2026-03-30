@@ -12,7 +12,12 @@ const serverDistFolder = dirname(fileURLToPath(import.meta.url));
 const browserDistFolder = resolve(serverDistFolder, '../browser');
 
 const app = express();
-const angularApp = new AngularNodeAppEngine();
+
+// Angular SSR cuenta con una lista de permitidos (allowlist) de seguridad para las peticiones (fetches) realizadas desde el servidor, con el fin de prevenir ataques de SSRF
+// Whitelist 
+const angularApp = new AngularNodeAppEngine({
+  allowedHosts: ['localhost', '127.0.0.1'],
+});
 
 /**
  * Example Express Rest API endpoints can be defined here.

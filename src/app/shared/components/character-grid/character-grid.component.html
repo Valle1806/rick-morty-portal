@@ -7,7 +7,7 @@
         <app-character-card 
           [character]="char"
           [showFavoriteButton]="isFavoritesView"
-          [isFavorite]="favoriteIds.includes(char.id)"
+          [isFavorite]="isFavoritesView ? true : favoriteIds.includes(char.id)"
           (toggleFavorite)="handleToggleFavorite($event)">
         </app-character-card>
       }

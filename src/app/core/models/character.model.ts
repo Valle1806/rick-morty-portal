@@ -8,6 +8,7 @@ export interface Character {
         name: string;
         url: string;
     };  
+    type: string;
     location: {
         name: string;
         url: string;

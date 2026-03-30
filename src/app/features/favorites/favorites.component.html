@@ -1,1 +1,30 @@
-<p>favorites works!</p>
+<div class="main-container bg-grid-mesh min-h-screen">
+  
+  @if (facade.loading$ | async) {
+    <div class="portal-loader-wrapper">
+      <div class="portal-ring"></div>
+      <div class="portal-label">Sincronizando...</div>
+    </div>
+  } @else {
+    @if (facade.favorites$ | async; as favs) {
+      
+      <h1 class="text-7xl italic text-glow-green mb-12">
+        Favoritos ({{ favs.length }})
+      </h1>
+
+      @if (favs.length > 0) {
+        <app-character-grid 
+          [characters]="favs"
+          [isFavoritesView]="true"
+          [showPagination]="false"
+          (toggleFavorite)="handleToggle($event)">
+        </app-character-grid>
+      } @else {
+        <div class="terminal-panel text-center py-20 border-dashed">
+          <p class="text-[#00b0c8] mb-6">No hay registros en esta dimensión.</p>
+          <button routerLink="/characters" class="btn-portal-sm">Explorar Multiverso</button>
+        </div>
+      }
+    }
+  }
+</div>

@@ -47,7 +47,7 @@
   }
 
   .card-comic {
-    @apply bg-slate-900 border-4 border-slate-800 rounded-[1.5rem] overflow-hidden 
+    @apply relative overflow-hidden bg-slate-900 border-4 border-slate-800 rounded-[1.5rem] overflow-hidden 
            transition-all duration-200 relative
            shadow-[6px_6px_0px_0px_rgba(0,0,0,0.5)] 
            hover:shadow-[8px_8px_0px_0px_var(--rm-green)] 
@@ -71,6 +71,20 @@
 
   .btn-portal-sm {
     @apply btn-portal-base px-4 py-2 text-sm;
+  }
+
+  .btn-fav-inactive {
+    @apply flex items-center justify-center gap-2 px-8 py-3 
+           bg-transparent text-white font-bold uppercase rounded-2xl
+           border-2 border-[#97ce4c] transition-all duration-300
+           hover:bg-[#97ce4c]/10 hover:shadow-[0_0_15px_rgba(151,206,76,0.3)];
+    font-family: "Space Grotesk", sans-serif;
+  }
+
+  /* Estado: SÍ ES FAVORITO (Verde Sólido - El "Selected") */
+  .btn-fav-active {
+    @apply btn-portal; /* Reutiliza tu clase .btn-portal que ya es verde sólida */
+    @apply shadow-[0_0_20px_rgba(151,206,76,0.5)]; /* Un brillo extra por estar seleccionado */
   }
 
   .terminal-panel {
@@ -134,10 +148,17 @@
 
   /* El contenedor del corazón de favorito */
   .fav-button {
-    @apply absolute top-4 right-4 p-2 rounded-xl bg-black/60 border-2 border-slate-700
-           text-slate-400 transition-all hover:scale-110;
+    @apply absolute top-4 right-4 z-20 p-2 rounded-xl bg-black/70 border-2 border-slate-700
+           text-slate-400 transition-all duration-300 hover:scale-110 hover:bg-black/90;
+    
+    /* Efecto cuando está activo (Estilo Rick & Morty) */
     &.active {
-      @apply text-red-500 border-red-500 bg-red-500/10;
+      @apply text-[#97ce4c] border-[#97ce4c] bg-[#97ce4c]/10;
+      filter: drop-shadow(0 0 8px rgba(151, 206, 76, 0.6));
+    }
+
+    svg {
+      @apply w-6 h-6 transition-colors duration-300;
     }
   }
 }
