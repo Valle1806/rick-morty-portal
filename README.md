@@ -1,59 +1,108 @@
 # RickMortyApp
 
-This project was generated using [Angular CLI](https://github.com/angular/angular-cli) version 19.2.23.
+Este proyecto fue generado con [Angular CLI](https://github.com/angular/angular-cli) versión 19.2.23.
 
-## Development server
+---
 
-To start a local development server, run:
+## 🚀 Resumen de la Prueba Técnica
 
-```bash
-ng serve
-```
+Aplicación construida con Angular 19 que implementa Server-Side Rendering (SSR), manejo de estado reactivo y una arquitectura desacoplada basada en patrones de diseño, con enfoque en rendimiento, escalabilidad y experiencia de usuario.
 
-Once the server is running, open your browser and navigate to `http://localhost:4200/`. The application will automatically reload whenever you modify any of the source files.
+### Especificaciones Técnicas y Alcance:
 
-## Code scaffolding
+- **SSR Obligatorio:** La vista de la grilla (`/characters`) se renderiza en el servidor.
+- **Gestión de Estado:** Manejo centralizado de favoritos mediante un enfoque reactivo (Facade + Store).
+- **Persistencia Inteligente:** Sincronización del estado con `localStorage` para mantener favoritos entre sesiones (`storageMetaReducer`).
+- **Arquitectura de Software:**
+  - **Repository Pattern:** Aislamiento de la lógica de acceso a datos.
+  - **Facade Pattern:** Abstracción de la lógica para simplificar los componentes.
+- **Optimización UX:** Uso de `withEventReplay` para evitar pérdida de eventos durante la hidratación SSR.
+- **Responsive Design:** Interfaz adaptativa para móviles, tablets y escritorio.
 
-Angular CLI includes powerful code scaffolding tools. To generate a new component, run:
+---
 
-```bash
-ng generate component component-name
-```
 
-For a complete list of available schematics (such as `components`, `directives`, or `pipes`), run:
+## 🗺️ Estructura de Rutas y Vistas
 
-```bash
-ng generate --help
-```
+La aplicación cumple con las 3 vistas requeridas en el alcance funcional:
 
-## Building
+1. **Vista de Grilla (`/characters`):**
+   - **SSR Real:** Renderizada desde el servidor para entrega inmediata.
+   - Paginación funcional (Siguiente/Anterior).
+   - Tarjetas informativas con navegación al detalle.
 
-To build the project run:
+2. **Vista de Detalle (`/characters/:id`):**
+   - Consumo dinámico de la API por ID.
+   - Visualización de más de 5 campos técnicos del personaje.
+   - **Gestión de Favoritos:** Botón interactivo para agregar/quitar de la Store global.
 
-```bash
-ng build
-```
+3. **Vista de Favoritos (`/favorites`):**
+   - Listado de personajes persistidos en la Store.
+   - Acceso directo al detalle y opción de gestión de la lista(eliminar).
 
-This will compile your project and store the build artifacts in the `dist/` directory. By default, the production build optimizes your application for performance and speed.
+---
 
-## Running unit tests
+## 🛠️ Guía de Ejecución Local
 
-To execute unit tests with the [Karma](https://karma-runner.github.io) test runner, use the following command:
-
-```bash
-ng test
-```
-
-## Running end-to-end tests
-
-For end-to-end (e2e) testing, run:
+### 1. Instalación de Dependencias
 
 ```bash
-ng e2e
+npm install
 ```
 
-Angular CLI does not come with an end-to-end testing framework by default. You can choose one that suits your needs.
+### 2. Servidor de Desarrollo
 
-## Additional Resources
+```bash
+npm start
+```
+Abrir en:
+http://localhost:4200/
 
-For more information on using the Angular CLI, including detailed command references, visit the [Angular CLI Overview and Command Reference](https://angular.dev/tools/cli) page.
+### 3. Ejecución en Producción SSR
+
+```bash
+# Construir cliente + servidor
+npm run build
+
+# Ejecutar servidor SSR
+npm run serve:ssr:rick-morty-app
+```
+Disponible en:
+http://localhost:4000
+
+--- 
+## 🐳 Despliegue con Docker (Bonus)
+
+```bash
+# Build de la imagen
+docker build -t rick-morty-app .
+
+# Run del contenedor
+docker run -p 4000:4000 rick-morty-app
+```
+
+Disponible en:
+http://localhost:4000
+
+---
+
+## 🛠️ Troubleshooting
+
+### 🔴 Puerto en uso
+```bash
+netstat -ano | findstr :4000
+taskkill /PID <PID> /F
+```
+### 🔴 Docker no inicia
+- Virtualización: Asegúrate de habilitar la virtualización en BIOS (SVM Mode para AMD o VT-x para Intel).
+
+- Red/SSL: Si fallan las descargas de imágenes, verifica que el firewall o antivirus no bloqueen la conexión con docker.io.
+
+- WSL2: Ejecuta wsl --update en PowerShell como administrador si el motor de Docker no arranca.
+
+--- 
+
+## 👨‍💻 Autor
+
+Cristian Camilo
+Ingeniero de Sistemas & Frontend Developer
