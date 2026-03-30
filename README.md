@@ -86,19 +86,21 @@ http://localhost:4000
 
 ---
 
-## 🛠️ Troubleshooting
+## 🛠️ Solución de Problemas (Troubleshooting)
 
-### 🔴 Puerto en uso
-```bash
-netstat -ano | findstr :4000
-taskkill /PID <PID> /F
-```
 ### 🔴 Docker no inicia
 - Virtualización: Asegúrate de habilitar la virtualización en BIOS (SVM Mode para AMD o VT-x para Intel).
 
 - Red/SSL: Si fallan las descargas de imágenes, verifica que el firewall o antivirus no bloqueen la conexión con docker.io.
 
 - WSL2: Ejecuta wsl --update en PowerShell como administrador si el motor de Docker no arranca.
+
+### 🔴 Parpadeo (Flicker) en Imágenes y Fuentes
+Si al navegar por la grilla notas un parpadeo visual en las fotos o el texto durante la hidratación:
+
+Causa: Este comportamiento ocurre únicamente si tienes las Chrome DevTools abiertas con la opción "Inhabilitar caché" (Disable Cache) marcada en la pestaña Network.
+
+Explicación: Al inhabilitar el caché, el navegador ignora los recursos servidos por el SSR y fuerza una nueva descarga desde el cliente durante la hidratación.
 
 --- 
 
