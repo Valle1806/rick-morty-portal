@@ -8,7 +8,7 @@ import { Character } from '../../../core/models/character.model';
   standalone: true,
   imports: [CommonModule, RouterModule],
   templateUrl: './character-card.component.html',
-  styleUrl: './character-card.component.scss'
+  styles: ``
 })
 export class CharacterCardComponent {
   // Datos del personaje

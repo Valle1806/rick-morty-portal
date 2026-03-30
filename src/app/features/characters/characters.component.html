@@ -1,1 +1,29 @@
-<p>characters works!</p>
+<header class="mb-12 border-l-8 border-[#97ce4c] pl-6">
+    <h1 class="text-6xl font-rick italic">LABORATORIO</h1>
+    <p class="text-2xl text-slate-400 mt-2">Explora el universo de Rick & Morty</p>
+    <p class="font-mono text-slate-500 text-sm">
+      EXPEDICIÓN ACTUAL: PÁGINA {{ currentPage }}
+    </p>
+</header>
+
+@if ((facade.loading$ | async) && (facade.characters$ | async)?.length === 0){
+  <div class="flex justify-center items-center h-64">
+    <p class="text-xl text-slate-500">Cargando personajes...</p>
+  </div>
+} @else { 
+    <section class="block">
+        <app-character-grid 
+            [characters]="(facade.characters$ | async) ?? []"
+            [currentPage]="currentPage"
+            [totalPages]="(facade.totalPages$ | async) ?? 1"
+            [showPagination]="true"
+            (pageChange)="handlePageChange($event)"
+            >
+        </app-character-grid>
+        @if ((facade.loading$ | async) && (facade.characters$ | async)?.length! > 0) {
+        <div class="fixed bottom-10 right-10 z-50">
+            <div class="w-12 h-12 border-4 border-[#97ce4c] border-t-transparent rounded-full animate-spin shadow-[0_0_20px_#97ce4c]"></div>
+        </div>
+    }
+    </section>
+}

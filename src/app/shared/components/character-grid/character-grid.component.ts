@@ -8,7 +8,7 @@ import { CharacterCardComponent } from '../character-card/character-card.compone
   standalone: true,
   imports: [CommonModule, CharacterCardComponent],
   templateUrl: './character-grid.component.html',
-  styleUrl: './character-grid.component.scss'
+  styles: ``
 })
 export class CharacterGridComponent {
   @Input() characters: Character[] = [];
