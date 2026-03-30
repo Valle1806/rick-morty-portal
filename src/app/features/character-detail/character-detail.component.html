@@ -41,9 +41,9 @@
         <div class="mt-8">
          <button 
           (click)="toggleFavorite(char)" 
-          [ngClass]="checkIfFavorite(char.id) ? 'btn-fav-active' : 'btn-fav-inactive'"
+          [ngClass]="(facade.isFavorite(char.id) | async)? 'btn-fav-active' : 'btn-fav-inactive'"
           class="w-full md:w-auto transform active:scale-95">
-             {{ checkIfFavorite(char.id) ? 'Quitar de Favoritos' : 'Agregar a Favoritos' }}
+             {{ (facade.isFavorite(char.id) | async) ? 'Quitar de Favoritos' : 'Agregar a Favoritos' }}
           </button>
         </div>
       </div>

@@ -12,9 +12,8 @@ import { RouterLink } from '@angular/router';
   templateUrl: './character-detail.component.html',
 })
 export class CharacterDetailComponent implements OnInit {
-  // Inyectamos solo el Facade
   public facade = inject(CharactersFacade);
-  
+
   public character$!: Observable<Character>;
   private _id!: string;
 
@@ -50,12 +49,7 @@ export class CharacterDetailComponent implements OnInit {
     return char[field.key] || 'N/A';
   }
 
-  checkIfFavorite(id: number): boolean {
-    return this.facade.isFavorite(id);
-  }
-
   toggleFavorite(Character: Character): void {
     this.facade.toggleFavorite(Character.id);
   }
- 
 }
